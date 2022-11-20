@@ -1,0 +1,68 @@
+
+
+/*
+ * Returns a list of all blog items that exists.
+ *
+ * Notice, a blog is basically a Markdown file found in the "/blogs/" folder.
+ */
+.list-blogs
+
+   // Sanity checking mixin invocation.
+   validators.mandatory:x:@.root-url
+
+   // Verifying blogs folder exists, and if not, returning immediately.
+   if
+      not
+         io.folder.exists:/etc/blogs/
+      .lambda
+         return:
+
+   // Holds our returned HTML.
+   .result:<ul>
+
+   // Listing all files in blog folder, and iterating through each Markdown file.
+   io.file.list:/etc/blogs/
+   for-each:x:-/*
+
+      // Verifying that this is a Markdown file.
+      if
+         strings.ends-with:x:@.dp/#
+            .:.md
+         .lambda
+
+            // Loading file to retrieve front matter parts.
+            io.file.load:x:@.dp/#
+            markdown2html:x:-
+               front-matter:bool:true
+
+            // Figuring out URL of blog, which is [.root-url] plus filename minus .md extension.
+            strings.split:x:@.dp/#
+               .:/
+            strings.split:x:-/0/-
+               .:.md
+            .url
+            set-value:x:@.url
+               strings.concat
+                  get-value:x:@.root-url
+                  get-value:x:@strings.split/0
+
+            // Creating HTML for currently iterated article.
+            set-value:x:@.result
+               strings.concat
+                  get-value:x:@.result
+                  .:"\r\n  <li>"
+                  .:"<a href=\""
+                  get-value:x:@.url
+                  .:@""">"
+                  get-value:x:@markdown2html/*/title
+                  .:"</a>"
+                  .:"</li>"
+
+   // Appending closing bulleted list tag.
+   set-value:x:@.result
+      strings.concat
+         get-value:x:@.result
+         .:"\r\n</ul>"
+
+   // Returning result to caller.
+   return:x:@.result
