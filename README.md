@@ -52,3 +52,6 @@ root URL _"/blogs/hello-world"_. Below is an example of its output.
   <li><a href="/blog/hello-world">Hello World</a></li>
 </ul>
 ```
+
+Notice, to actually resolve individual blogs, you'll need a _"default.hl"_ file and a _"default.html"_
+file, that can be found in whatever folder you choose to render your blogs within.
