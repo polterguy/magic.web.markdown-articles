@@ -5,7 +5,7 @@ Allows you to easily implement blogs for your dynamically rendered Hyperlambda w
 is written by creating a Markdown file within your _"/etc/blogs/"_ folder, with front matter parts
 declaring the title of the article, and its content such as follows.
 
-```
+```markdown
 ---
 title: Hello world
 ---
@@ -30,5 +30,13 @@ This mixin allows you to render a list of blogs in your installation.
    return:x:-
 ```
 
-The above will return a bulleted list of all articles it can find in your _"/etc/blogs/"_ folder,
-where each file
+The above will return a bulleted list of all articles it can find in your _"/etc/blogs/"_ folder.
+The **[.root-url]** argument is the root URL of where individual blogs can be found. If you for
+instance have a file named _"/etc/blogs/hello-world.md"__ the above will result in the following
+root URL _"/blogs/hello-world"_. Below is an example of its output.
+
+```html
+<ul>
+  <li><a href="/blog/hello-world">Hello World</a></li>
+</ul>
+```
