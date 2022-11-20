@@ -21,13 +21,19 @@ The plugin contains several _"mixin"_ components that can be used as follows.
 
 ## Listing blogs
 
-This mixin allows you to render a list of blogs in your installation.
+This mixin allows you to render a list of blogs in your installation such as follows.
 
 ```
 .list-blogs
    io.file.mixin:/etc/www/.plugins/magic.web.markdown-blogs/list.html
       .root-url:/blog/
    return:x:-
+```
+
+The above would be referenced in your HTML such as follows.
+
+```html
+{{*/.list-blogs}}
 ```
 
 The above will return a bulleted list of all articles it can find in your _"/etc/blogs/"_ folder.
