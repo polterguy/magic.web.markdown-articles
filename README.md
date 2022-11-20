@@ -30,14 +30,12 @@ This mixin allows you to render a list of blogs in your installation such as fol
    return:x:-
 ```
 
-The above would be referenced in your HTML such as follows.
+The above could be referenced in your HTML such as follows.
 
 ```html
-blah, blah, blah ...
 <div class="blogs">
 {{*/.list-blogs}}
 </div>
-blah, blah, blah ...
 ```
 
 The above will return a bulleted list of all articles it can find in your _"/etc/blogs/"_ folder.
