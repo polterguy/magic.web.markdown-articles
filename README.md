@@ -23,6 +23,8 @@ The plugin contains several _"mixin"_ components that can be used as follows.
 
 This mixin allows you to render a list of blogs in your installation such as follows.
 
+**/blogs.hl**
+
 ```
 .list-blogs
    io.file.mixin:/etc/www/.plugins/magic.web.markdown-blogs/list.html
@@ -31,6 +33,8 @@ This mixin allows you to render a list of blogs in your installation such as fol
 ```
 
 The above could be referenced in your HTML such as follows.
+
+**/blogs.html**
 
 ```html
 <div class="blogs">
