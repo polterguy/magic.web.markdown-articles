@@ -1,8 +1,8 @@
 
 # Markdown blog plugin for magic.web
 
-This plugin allows you to easily implement blogs for your dynamically rendered Hyperlambda websites. Each article
-is written by creating a Markdown file within your _"/etc/blogs/"_ folder, with front matter parts
+This plugin allows you to easily implement Markdown blog support for your dynamically rendered Hyperlambda websites.
+Each blog article is written by creating a Markdown file within your _"/etc/blogs/"_ folder, with front matter parts
 declaring the title of the article, and its content such as follows.
 
 ```markdown
@@ -33,7 +33,11 @@ This mixin allows you to render a list of blogs in your installation such as fol
 The above would be referenced in your HTML such as follows.
 
 ```html
+blah, blah, blah ...
+<div class="blogs">
 {{*/.list-blogs}}
+</div>
+blah, blah, blah ...
 ```
 
 The above will return a bulleted list of all articles it can find in your _"/etc/blogs/"_ folder.
