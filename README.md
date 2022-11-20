@@ -2,7 +2,7 @@
 # Markdown blog plugin for magic.web
 
 This plugin allows you to easily implement Markdown blog support for your dynamically rendered Hyperlambda websites.
-Each blog article is written by creating a Markdown file within your _"/etc/blogs/"_ folder, with front matter parts
+Each blog article is written by creating a Markdown file within your _"/etc/blogs/"_ folder, with frontmatter parts
 declaring the title of the article, and its content such as follows.
 
 ```markdown
@@ -23,7 +23,7 @@ The plugin contains several _"mixin"_ components that can be used as follows.
 
 This mixin allows you to render a list of blogs in your installation such as follows.
 
-**/blogs.hl**
+**/index.hl**
 
 ```
 .list-blogs
@@ -34,7 +34,7 @@ This mixin allows you to render a list of blogs in your installation such as fol
 
 The above could be referenced in your HTML such as follows.
 
-**/blogs.html**
+**/index.html**
 
 ```html
 <div class="blogs">
@@ -54,4 +54,4 @@ root URL _"/blogs/hello-world"_. Below is an example of its output.
 ```
 
 Notice, to actually resolve individual blogs, you'll need a _"default.hl"_ file and a _"default.html"_
-file, that can be found in whatever folder you choose to render your blogs within.
+file, that can be found in whatever **[.root-url]** folder you choose to render your blogs within.
