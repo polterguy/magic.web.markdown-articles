@@ -16,7 +16,7 @@ strings.split:x:@strings.split/0/-
    .:.
 set-value:x:@.file
    strings.concat
-      .:/etc/blogs/
+      get-value:x:@.arguments/*/.root-folder
       get-value:x:@strings.split
       .:.md
 

@@ -2,8 +2,8 @@
 # Markdown blog plugin for magic.web
 
 This plugin allows you to easily implement Markdown blog support for your dynamically rendered Hyperlambda websites.
-Each blog article is written by creating a Markdown file within your _"/etc/blogs/"_ folder, with frontmatter parts
-declaring the title of the article, and its content such as follows.
+Each blog article is written by creating a Markdown file within some folder, with frontmatter parts
+declaring the title of the article and its content such as follows.
 
 ```markdown
 ---
@@ -21,8 +21,9 @@ The plugin contains several _"mixin"_ components that can be used as follows.
 
 ## Listing blogs
 
-Assuming you have this plugin inside of _"/etc/plugins/magic.web.markdown-blogs/"_ this mixin allows
-you to render a list of blogs in your installation such as follows.
+Assuming you have this plugin inside of _"/etc/plugins/magic.web.markdown-blogs/"_, and your actual
+articles inside of _"/etc/articles/"_ this mixin allows you to render a list of blogs in your installation
+such as follows.
 
 **/index.hl**
 
@@ -30,9 +31,12 @@ you to render a list of blogs in your installation such as follows.
 .list-blogs
    io.file.mixin:/etc/plugins/magic.web.markdown-blogs/list.html
       .root-url:/blog/
+      .root-folder:/etc/articles/
    return:x:-
 ```
 
+The above **[.root-url]** is the root URL of where you want users to be able to read your blogs, and
+the above **[.root-folder]** parts is the physical folder on disc where you keep your Markdown files.
 The above could be referenced in your HTML such as follows.
 
 **/index.html**
@@ -43,9 +47,9 @@ The above could be referenced in your HTML such as follows.
 </div>
 ```
 
-The above will return a bulleted list of all articles it can find in your _"/etc/blogs/"_ folder.
+The above will return a bulleted list of all articles it can find in your _"/etc/articles/"_ folder.
 The **[.root-url]** argument is the root URL of where individual blogs can be found. If you for
-instance have a file named _"/etc/blogs/hello-world.md"__ the above will result in the following
+instance have a file named _"/etc/articles/hello-world.md"__ the above will result in the following
 root URL _"/blogs/hello-world"_. Below is an example of its output.
 
 ```html
@@ -54,5 +58,46 @@ root URL _"/blogs/hello-world"_. Below is an example of its output.
 </ul>
 ```
 
-Notice, to actually resolve individual blogs, you'll need a _"default.hl"_ file and a _"default.html"_
-file, that can be found in whatever **[.root-url]** folder you choose to render your blogs within.
+Notice, to actually resolve individual blogs, you'll need a _"default.hl"_ file, a _"default.html"_
+file, and an __"interceptor.hl"_ file that can be found in whatever **[.root-url]** folder you choose
+to render your blogs from. Below is an example of all 3 required files.
+
+**/blog/default.html**
+
+```
+<html>
+  <head>
+    <title>{{*/.title}}</title>
+  </head>
+  <body>
+    <h1>{{*/.title}}</h1>
+    <div>
+{{*/.content}}
+    </div>
+  </body>
+</html>
+```
+
+**/blog/default.hl**
+
+```
+.title
+   return:x:@.blog/*/title
+.content
+   return:x:@.blog/*/content
+```
+
+**/blog/interceptor.hl**
+
+```
+.blog
+add:x:@.blog
+   io.file.execute:/etc/plugins/magic.web.markdown-blogs/get-article.hl
+      .root-folder:/etc/articles/
+.interceptor
+```
+
+The point with the above, is that your interceptor loads the article's content once,
+and then adds the semantic content from your Markdown file into its **[.blog]** node,
+before the default URL resolver executes, which at that point can reference values
+from your blog, such as its content, title, etc.

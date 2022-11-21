@@ -5,6 +5,7 @@
  *
  * Notice, a blog is basically a Markdown file found in the "/blogs/" folder.
  */
+
 .list-blogs
 
    // Sanity checking mixin invocation.
@@ -13,7 +14,7 @@
    // Verifying blogs folder exists, and if not, returning immediately.
    if
       not
-         io.folder.exists:/etc/blogs/
+         io.folder.exists:x:@.list-blogs/./*/.root-folder
       .lambda
          return:
 
@@ -21,7 +22,7 @@
    .result:<ul>
 
    // Listing all files in blog folder, and iterating through each Markdown file.
-   io.file.list:/etc/blogs/
+   io.file.list:x:@.list-blogs/./*/.root-folder
    for-each:x:-/*
 
       // Verifying that this is a Markdown file.
