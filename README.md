@@ -62,6 +62,16 @@ Notice, to actually resolve individual blogs, you'll need a _"default.hl"_ file,
 file, and an _"interceptor.hl"_ file that can be found in whatever **[.root-url]** folder you choose
 to render your blogs from. Below is an example of all 3 required files.
 
+**/blog/interceptor.hl**
+
+```
+.blog
+add:x:@.blog
+   io.file.execute:/etc/plugins/magic.web.markdown-blogs/get-article.hl
+      .root-folder:/etc/articles/
+.interceptor
+```
+
 **/blog/default.html**
 
 ```
@@ -91,16 +101,6 @@ to render your blogs from. Below is an example of all 3 required files.
  * resolver will load the file as static content, and never return the file
  * as a mixin.
  */
-```
-
-**/blog/interceptor.hl**
-
-```
-.blog
-add:x:@.blog
-   io.file.execute:/etc/plugins/magic.web.markdown-blogs/get-article.hl
-      .root-folder:/etc/articles/
-.interceptor
 ```
 
 The point with the above, is that your interceptor loads the article's content once,
