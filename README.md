@@ -105,7 +105,7 @@ add:x:@.blog
  * Since we don't have any logic in our actual article Hyperlambda file,
  * this file can be empty, since all the heavy lifting is actually done
  * in the interceptor file, and expressions in HTML file are leading
- * directly to to nodes in our interceptor file.
+ * directly to nodes in our interceptor file.
  *
  * However, the file still needs to exist on disc, otherwise the endpoint
  * resolver will load the file as static content, and never return the file
