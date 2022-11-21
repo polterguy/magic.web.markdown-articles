@@ -78,7 +78,7 @@ add:x:@.blog
    io.file.execute:/etc/plugins/magic.web.markdown-blogs/get-article.hl
       .root-folder:/etc/blogs/
 
-// Interceptor node, replaced by blog Hyperlambda file's content.
+// Interceptor node, replaced by default.hl Hyperlambda content.
 .interceptor
 ```
 
