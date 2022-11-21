@@ -20,6 +20,15 @@ set-value:x:@.file
       get-value:x:@strings.split
       .:.md
 
+// Making sure article exists, and if not, throwing an exception
+if
+   not
+      io.file.exists:x:@.file
+   .lambda
+      throw:Not found
+         status:404
+         public:bool:true
+
 // Loading file, and transforming to Markdown, including front matter parts.
 io.file.load:x:@.file
 markdown2html:x:@io.file.load
