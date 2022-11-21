@@ -9,7 +9,7 @@ declaring the title of the article, and its content such as follows.
 ---
 title: Hello world
 ---
-This is an example blog.
+This is an example article.
 
 1. This is some numbered list
 2. This is another list item
