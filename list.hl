@@ -20,7 +20,7 @@
          return:
 
    // Holds our returned HTML.
-   .result:<ul>
+   .result:"\r\n<ul>"
 
    // Listing all files in blog folder, and iterating through each Markdown file.
    io.file.list:x:@.list-blogs/./*/.root-folder
@@ -75,6 +75,7 @@
                      .:"\r\n      <span>"
                      get-value:x:@markdown2html/*/excerpt
                      .:</span>
+                     .:"\r\n    </a>"
 
             else
 
@@ -83,19 +84,19 @@
                   strings.concat
                      get-value:x:@.result
                      get-value:x:@markdown2html/*/title
+                     .:</a>
 
             // Closing HTML tags.
             set-value:x:@.result
                strings.concat
                   get-value:x:@.result
-                  .:"\r\n    </a>"
                   .:"\r\n  </li>"
 
    // Appending closing bulleted list tag.
    set-value:x:@.result
       strings.concat
          get-value:x:@.result
-         .:"\r\n</ul>"
+         .:"\r\n</ul>\r\n"
 
    // Returning result to caller.
    return:x:@.result
