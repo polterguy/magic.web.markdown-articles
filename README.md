@@ -144,8 +144,6 @@ add:x:@.article
 The point with the above, is that your interceptor loads the article's content once,
 and then adds the semantic content from your Markdown file into its **[.blog]** node,
 before the default URL resolver executes, which at that point can reference values
-from your blog, such as its content, title, etc.
-
-The URL dynamically ends up resolving to the filename of whatever article the user
-is requesting. A URL of for instance _"/articles/foo"_ resolves to the
-file _"/etc/articles/foo.md"_.
+from your blog, such as its content, title, etc. The URL dynamically ends up resolving
+to the filename of whatever article the user is requesting. A URL of for
+instance _"/articles/foo"_ resolves to the physical file _"/etc/articles/foo.md"_.
