@@ -1,0 +1,34 @@
+
+/*
+ * Loads a blog according to the URL of the request,
+ * including front matter parts, and returns result
+ * to caller.
+ */
+
+// Contains filename of Markdown file containing blog content.
+.file
+
+// Retrieving URL and transforming into a complete filename.
+request.url
+strings.split:x:@request.url
+   .:/
+strings.split:x:@strings.split/0/-
+   .:.
+set-value:x:@.file
+   strings.concat
+      .:/etc/blogs/
+      get-value:x:@strings.split
+      .:.md
+
+// Loading file, and transforming to Markdown, including front matter parts.
+io.file.load:x:@.file
+markdown2html:x:@io.file.load
+   front-matter:true
+
+// Returning result to caller.
+add:x:./*/return
+   get-nodes:x:@markdown2html/*
+unwrap:x:+/*
+return
+   content:x:@markdown2html
+
