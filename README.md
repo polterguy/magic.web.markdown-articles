@@ -49,7 +49,7 @@ The above could be referenced in your HTML such as follows.
 
 The above will return a bulleted list of all articles it can find in your _"/etc/articles/"_ folder.
 The **[.root-url]** argument is the root URL of where individual blogs can be found. If you for
-instance have a file named _"/etc/articles/hello-world.md"__ the above will result in the following
+instance have a file named _"/etc/articles/hello-world.md"_ the above will result in the following
 root URL _"/blogs/hello-world"_. Below is an example of its output.
 
 ```html
