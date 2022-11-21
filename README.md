@@ -17,7 +17,8 @@ This is an example article.
 This is a [hyperlink](https://aista.com) leading to Aista's website.
 ```
 
-The plugin contains several _"mixin"_ components that can be used as follows.
+The plugin contains several _"mixin"_ components that can be used to list articles, get article
+content, etc.
 
 ## Listing articles
 
@@ -48,7 +49,7 @@ The above could be referenced in your HTML such as follows.
 ```
 
 The above will return a bulleted list of all articles it can find in your _"/etc/articles/"_ folder.
-The **[.root-url]** argument is the root URL of where individual blogs can be found. If you for
+The **[.root-url]** argument is the root URL of where individual articles can be found. If you for
 instance have a file named _"/etc/articles/hello-world.md"_ the above will result in the following
 root URL _"/articles/hello-world"_. Below is an example of its output.
 
@@ -58,7 +59,7 @@ root URL _"/articles/hello-world"_. Below is an example of its output.
 </ul>
 ```
 
-You can also invoke the list blog mixin with a **[.verbose]** argument with a value of `true`,
+You can also invoke the list articles mixin with a **[.verbose]** argument with a value of `true`,
 at which point the returned HTML will resemble the following.
 
 ```html
@@ -96,10 +97,10 @@ to render your articles from. Below is an example of all 3 required files.
 ```
 /*
  * Interceptor for articles, doing all the heavy lifting, actually
- * loading articles, by intercepting the main blog Hyperlambda file.
+ * loading articles, by intercepting the main display article Hyperlambda file.
  */
 
-// Executing get-article Hyperlambda file, putting content into [.blog] node.
+// Executing get-article Hyperlambda file, putting content into [.article] node.
 .article
 add:x:@.article
    io.file.execute:/etc/plugins/magic.web.markdown-articles/get-article.hl
@@ -144,3 +145,7 @@ The point with the above, is that your interceptor loads the article's content o
 and then adds the semantic content from your Markdown file into its **[.blog]** node,
 before the default URL resolver executes, which at that point can reference values
 from your blog, such as its content, title, etc.
+
+The URL dynamically ends up resolving to the filename of whatever article the user
+is requesting. A URL of for instance _"/articles/foo"_ resolves to the
+file _"/etc/articles/foo.md"_.
