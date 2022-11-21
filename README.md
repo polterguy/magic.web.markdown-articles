@@ -86,6 +86,10 @@ to render your blogs from. Below is an example of all 3 required files.
  * this file can be empty, since all the heavy lifting is actually done
  * in the interceptor file, and expressions in HTML file are leading
  * directly to to nodes in our interceptor file.
+ *
+ * However, the file still needs to exist on disc, otherwise the endpoint
+ * resolver will load the file as static content, and never return the file
+ * as a mixin.
  */
 ```
 
