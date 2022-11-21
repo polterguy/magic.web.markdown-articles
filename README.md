@@ -59,7 +59,7 @@ root URL _"/blogs/hello-world"_. Below is an example of its output.
 ```
 
 Notice, to actually resolve individual blogs, you'll need a _"default.hl"_ file, a _"default.html"_
-file, and an __"interceptor.hl"_ file that can be found in whatever **[.root-url]** folder you choose
+file, and an _"interceptor.hl"_ file that can be found in whatever **[.root-url]** folder you choose
 to render your blogs from. Below is an example of all 3 required files.
 
 **/blog/default.html**
