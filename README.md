@@ -1,9 +1,9 @@
 
-# Markdown blog plugin for magic.web
+# Markdown article plugin for magic.web
 
-This plugin allows you to easily implement Markdown blog support for your dynamically rendered Hyperlambda websites.
-Each blog article is written by creating a Markdown file within some folder, with frontmatter parts
-declaring the title of the article and its content such as follows.
+This plugin allows you to easily implement Markdown article support for your dynamically rendered Hyperlambda
+websites. Each article is supplied by creating a Markdown file within some folder, with front matter parts
+declaring the title of the article, and its content such as follows.
 
 ```markdown
 ---
@@ -19,42 +19,42 @@ This is a [hyperlink](https://aista.com) leading to Aista's website.
 
 The plugin contains several _"mixin"_ components that can be used as follows.
 
-## Listing blogs
+## Listing articles
 
-Assuming you have this plugin inside of _"/etc/plugins/magic.web.markdown-blogs/"_, and your actual
-articles inside of _"/etc/articles/"_ this mixin allows you to render a list of blogs in your installation
-such as follows.
+Assuming you have this plugin inside of _"/etc/plugins/magic.web.markdown-articles/"_, and your actual
+articles inside of _"/etc/articles/"_ this mixin allows you to render a list of articles in your
+installation such as follows.
 
 **/index.hl**
 
 ```
-.list-blogs
-   io.file.mixin:/etc/plugins/magic.web.markdown-blogs/list.html
-      .root-url:/blog/
+.list-articles
+   io.file.mixin:/etc/plugins/magic.web.markdown-articles/list.html
+      .root-url:/articles/
       .root-folder:/etc/articles/
    return:x:-
 ```
 
-The above **[.root-url]** is the root URL of where you want users to be able to read your blogs, and
+The above **[.root-url]** is the root URL of where you want users to be able to read your articles, and
 the above **[.root-folder]** parts is the physical folder on disc where you keep your Markdown files.
 The above could be referenced in your HTML such as follows.
 
 **/index.html**
 
 ```html
-<div class="blogs">
-{{*/.list-blogs}}
+<div class="articles">
+{{*/.list-articles}}
 </div>
 ```
 
 The above will return a bulleted list of all articles it can find in your _"/etc/articles/"_ folder.
 The **[.root-url]** argument is the root URL of where individual blogs can be found. If you for
 instance have a file named _"/etc/articles/hello-world.md"_ the above will result in the following
-root URL _"/blogs/hello-world"_. Below is an example of its output.
+root URL _"/articles/hello-world"_. Below is an example of its output.
 
 ```html
 <ul>
-  <li><a href="/blog/hello-world">Hello World</a></li>
+  <li><a href="/articles/hello-world">Hello World</a></li>
 </ul>
 ```
 
@@ -64,7 +64,7 @@ at which point the returned HTML will resemble the following.
 ```html
 <ul>
   <li>
-    <a href="/blog/hello-world">
+    <a href="/articles/hello-world">
       <h3>Hello world</h3>
       <img src="https://aista.com/wp-content/uploads/2022/11/twitter-elon.jpg" alt="Hello world">
       <span>This is an excerpt</span>
@@ -73,7 +73,7 @@ at which point the returned HTML will resemble the following.
 </ul>
 ```
 
-Notice, if you do, your blog Markdown files needs to have at least the following front matter
+Notice, if you do, your article Markdown files needs to have at least the following front matter
 parts declared.
 
 ```markdown
@@ -82,50 +82,50 @@ title: Hello world
 excerpt: This is an excerpt
 image: https://aista.com/wp-content/uploads/2022/11/twitter-elon.jpg
 ---
-... blog content ...
+... article content ...
 ```
 
-## Displaying blogs
+## Displaying articles
 
-To actually resolve individual blogs, you'll need a _"default.hl"_ file, a _"default.html"_
+To actually resolve individual articles, you'll need a _"default.hl"_ file, a _"default.html"_
 file, and an _"interceptor.hl"_ file that can be found in whatever **[.root-url]** folder you choose
-to render your blogs from. Below is an example of all 3 required files.
+to render your articles from. Below is an example of all 3 required files.
 
-**/blog/interceptor.hl**
+**/articles/interceptor.hl**
 
 ```
 /*
- * Interceptor for blogs, doing all the heavy lifting, actually
+ * Interceptor for articles, doing all the heavy lifting, actually
  * loading articles, by intercepting the main blog Hyperlambda file.
  */
 
 // Executing get-article Hyperlambda file, putting content into [.blog] node.
-.blog
-add:x:@.blog
-   io.file.execute:/etc/plugins/magic.web.markdown-blogs/get-article.hl
-      .root-folder:/etc/blogs/
+.article
+add:x:@.article
+   io.file.execute:/etc/plugins/magic.web.markdown-articles/get-article.hl
+      .root-folder:/etc/articles/
 
 // Interceptor node, replaced by default.hl Hyperlambda content.
 .interceptor
 ```
 
-**/blog/default.html**
+**/articles/default.html**
 
 ```
 <html>
   <head>
-    <title>{{@.blog/*/title}}</title>
+    <title>{{@.article/*/title}}</title>
   </head>
   <body>
-    <h1>{{@.blog/*/title}}</h1>
+    <h1>{{@.article/*/title}}</h1>
     <div>
-{{@.blog/*/content}}
+{{@.article/*/content}}
     </div>
   </body>
 </html>
 ```
 
-**/blog/default.hl**
+**/articles/default.hl**
 
 ```
 /*
