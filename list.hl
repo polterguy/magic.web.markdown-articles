@@ -10,6 +10,7 @@
 
    // Sanity checking mixin invocation.
    validators.mandatory:x:@.root-url
+   validators.mandatory:x:@.root-folder
 
    // Verifying blogs folder exists, and if not, returning immediately.
    if
@@ -52,12 +53,43 @@
                strings.concat
                   get-value:x:@.result
                   .:"\r\n  <li>"
-                  .:"<a href=\""
+                  .:"\r\n    <a href=\""
                   get-value:x:@.url
                   .:@""">"
-                  get-value:x:@markdown2html/*/title
-                  .:"</a>"
-                  .:"</li>"
+
+            // Checking if caller wants verbose result.
+            if:x:@.verbose
+
+               // Rich HTML "cards" style.
+               set-value:x:@.result
+                  strings.concat
+                     get-value:x:@.result
+                     .:"\r\n      <h3>"
+                     get-value:x:@markdown2html/*/title
+                     .:</h3>
+                     .:"\r\n      <img src=\""
+                     get-value:x:@markdown2html/*/image
+                     .:@""" alt="""
+                     get-value:x:@markdown2html/*/title
+                     .:@""">"
+                     .:"\r\n      <span>"
+                     get-value:x:@markdown2html/*/excerpt
+                     .:</span>
+
+            else
+
+               // Simple anchor URLs.
+               set-value:x:@.result
+                  strings.concat
+                     get-value:x:@.result
+                     get-value:x:@markdown2html/*/title
+
+            // Closing HTML tags.
+            set-value:x:@.result
+               strings.concat
+                  get-value:x:@.result
+                  .:"\r\n    </a>"
+                  .:"\r\n  </li>"
 
    // Appending closing bulleted list tag.
    set-value:x:@.result

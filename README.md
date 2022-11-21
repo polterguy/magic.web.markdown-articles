@@ -58,6 +58,33 @@ root URL _"/blogs/hello-world"_. Below is an example of its output.
 </ul>
 ```
 
+You can also invoke the list blog mixin with a **[.verbose]** argument with a value of `true`,
+at which point the returned HTML will resemble the following.
+
+```html
+<ul>
+  <li>
+    <a href="/blog/hello-world">
+      <h3>Hello world</h3>
+      <img src="https://aista.com/wp-content/uploads/2022/11/twitter-elon.jpg" alt="Hello world">
+      <span>This is an excerpt</span>
+    </a>
+  </li>
+</ul>
+```
+
+Notice, if you do, your blog Markdown files needs to have at least the following front matter
+parts declared.
+
+```markdown
+---
+title: Hello world
+excerpt: This is an excerpt
+image: https://aista.com/wp-content/uploads/2022/11/twitter-elon.jpg
+---
+... blog content ...
+```
+
 ## Displaying blogs
 
 To actually resolve individual blogs, you'll need a _"default.hl"_ file, a _"default.html"_
