@@ -67,10 +67,18 @@ to render your blogs from. Below is an example of all 3 required files.
 **/blog/interceptor.hl**
 
 ```
+/*
+ * Interceptor for blogs, doing all the heavy lifting, actually
+ * loading articles, by intercepting the main blog Hyperlambda file.
+ */
+
+// Executing get-article Hyperlambda file, putting content into [.blog] node.
 .blog
 add:x:@.blog
    io.file.execute:/etc/plugins/magic.web.markdown-blogs/get-article.hl
-      .root-folder:/etc/articles/
+      .root-folder:/etc/blogs/
+
+// Interceptor node, replaced by blog Hyperlambda file's content.
 .interceptor
 ```
 
