@@ -67,12 +67,12 @@ to render your blogs from. Below is an example of all 3 required files.
 ```
 <html>
   <head>
-    <title>{{*/.title}}</title>
+    <title>{{@.blog/*/title}}</title>
   </head>
   <body>
-    <h1>{{*/.title}}</h1>
+    <h1>{{@.blog/*/title}}</h1>
     <div>
-{{*/.content}}
+{{@.blog/*/content}}
     </div>
   </body>
 </html>
@@ -81,10 +81,12 @@ to render your blogs from. Below is an example of all 3 required files.
 **/blog/default.hl**
 
 ```
-.title
-   return:x:@.blog/*/title
-.content
-   return:x:@.blog/*/content
+/*
+ * Since we don't have any logic in our actual article Hyperlambda file,
+ * this file can be empty, since all the heavy lifting is actually done
+ * in the interceptor file, and expressions in HTML file are leading
+ * directly to to nodes in our interceptor file.
+ */
 ```
 
 **/blog/interceptor.hl**
